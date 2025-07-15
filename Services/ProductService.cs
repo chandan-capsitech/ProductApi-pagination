@@ -11,16 +11,18 @@ public class ProductService
         _products = context.Products;
     }
 
+    //Hey this is dwaipayan
+
     public async Task<PaginationResponse<Product>> GetProductsAsync(int page, int pageSize)
     {
         if (page <= 0) page = 1;
-        if(pageSize <= 0) pageSize = 3;
+        if (pageSize <= 0) pageSize = 3;
 
-        var skip = (page-1) * pageSize;
+        var skip = (page - 1) * pageSize;
         var totalItems = await _products.CountDocumentsAsync(FilterDefinition<Product>.Empty);
 
         var products = await _products.Find(FilterDefinition<Product>.Empty)
-            .SortBy(p =>p.Id)
+            .SortBy(p => p.Id)
             .Skip(skip)
             .Limit(pageSize)
             .ToListAsync();
